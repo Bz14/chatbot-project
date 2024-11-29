@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { FaUser, FaRobot } from "react-icons/fa";
+import { FaUser, FaRobot, FaPaperPlane } from "react-icons/fa";
 
 interface ChatMessage {
   role: string;
@@ -49,8 +49,12 @@ const Chatbot = () => {
                 }`}
               >
                 <span className="flex justify-center items-center">
-                  {msg.role === "user" ? <FaUser /> : <FaRobot />}:{" "}
-                  <p className="ml-2">{msg.content}</p>
+                  {msg.role === "user" ? (
+                    <FaUser size={20} />
+                  ) : (
+                    <FaRobot size={20} />
+                  )}
+                  : <p className="ml-2">{msg.content}</p>
                 </span>{" "}
               </p>
             </div>
@@ -62,13 +66,13 @@ const Chatbot = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
-            className="flex-grow p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
           />
           <button
             onClick={sendMessage}
-            className="ml-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="ml-2 px-4 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600"
           >
-            Send
+            <FaPaperPlane />
           </button>
         </div>
       </div>
