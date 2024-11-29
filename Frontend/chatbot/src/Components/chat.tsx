@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaUser, FaRobot } from "react-icons/fa";
 
 interface ChatMessage {
   role: string;
@@ -17,10 +18,11 @@ const Chatbot = () => {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await axios.post("http://localhost:5000/chat", {
-        message: input,
-      });
-      const botMessage = { role: "bot", content: response.data.reply };
+      // const response = await axios.post("http://localhost:5000/chat", {
+      //   message: input,
+      // });
+      // const botMessage = { role: "bot", content: response.data.reply };
+      const botMessage = { role: "bot", content: "How can I help you?" };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error("Error communicating with the bot:", error);
@@ -29,8 +31,8 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4">
+      <div className="w-full max-w-md bg-gray-200 rounded-lg shadow-md">
         <div className="p-4 h-96 overflow-y-auto border-b border-gray-200">
           {messages.map((msg, index) => (
             <div
@@ -42,12 +44,14 @@ const Chatbot = () => {
               <p
                 className={`inline-block px-4 py-2 rounded-lg ${
                   msg.role === "user"
-                    ? "bg-blue-500 text-white self-end"
-                    : "bg-gray-200 text-gray-800"
+                    ? "bg-gray-500 text-white self-end"
+                    : "bg-white text-gray-800"
                 }`}
               >
-                <strong>{msg.role === "user" ? "You" : "Bot"}:</strong>{" "}
-                {msg.content}
+                <span className="flex justify-center items-center">
+                  {msg.role === "user" ? <FaUser /> : <FaRobot />}:{" "}
+                  <p className="ml-2">{msg.content}</p>
+                </span>{" "}
               </p>
             </div>
           ))}
